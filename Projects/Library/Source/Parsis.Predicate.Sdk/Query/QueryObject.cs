@@ -53,4 +53,17 @@ public class QueryObject<TObject, TQueryType> where TObject : IQueryableObject w
     }
 
     public QueryObject(TQueryType queryType) => QueryType = queryType;
+
+    public bool IsValid(out List<IQueryObjectIssue> objectIssues)
+    {
+        objectIssues = new List<IQueryObjectIssue>();
+        var isValid = true;
+        if (Command is { IsValid: false })
+        {
+            objectIssues.AddRange(Command.GetIssues());
+            isValid = false;
+        }
+
+        return isValid;
+    }
 }

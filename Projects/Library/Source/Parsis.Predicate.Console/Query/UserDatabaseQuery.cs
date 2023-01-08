@@ -63,10 +63,19 @@ public class UserDatabaseQuery : UserQuery<DatabaseQueryOperationType, DatabaseQ
     public async Task<string> UpdateCommandAsync(User user)
     {
         var updateObject = QueryObjectBuilder<User, DatabaseQueryOperationType>.Init(DatabaseQueryOperationType.Update).SetCommand(QueryObjectCommand<User>.InitUpdate(CommandValueType.Record).Add(_ => user)).Validate().Generate();
-        var updateQuery = await Operation.RunAsync(updateObject);
-        var update = updateQuery.GetCommandQuery(out var paramters);
 
-        return update;
+        if (updateObject.IsValid(out List<IQueryObjectIssue> objectIssues))
+        {
+            var updateQuery = await Operation.RunAsync(updateObject);
+            var update = updateQuery.GetCommandQuery(out var paramters);
+
+            return update;
+
+        }
+        else
+        {
+            return "Has Error";
+        }
     }
 
 

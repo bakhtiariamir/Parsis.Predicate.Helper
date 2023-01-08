@@ -3,7 +3,6 @@ using Parsis.Predicate.Sdk.Contract;
 using Parsis.Predicate.Sdk.DataType;
 using Parsis.Predicate.Sdk.Exception;
 using Parsis.Predicate.Sdk.Helper;
-using System.Data;
 using System.Data.SqlClient;
 
 namespace Parsis.Predicate.Sdk.Generator.Database;

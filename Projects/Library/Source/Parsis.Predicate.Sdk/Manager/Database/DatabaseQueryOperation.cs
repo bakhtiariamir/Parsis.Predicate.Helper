@@ -19,7 +19,7 @@ public abstract class DatabaseQueryOperation<TObject> : QueryOperation<TObject, 
 
         QueryObject = QueryObjectReducer<TObject, DatabaseQueryOperationType>.Init(queryObject).Reduce().Return();
 
-          var validateQuery = await ValidateAsync();
+        var validateQuery = await ValidateAsync(out var errors);
         if (validateQuery)
         {
             return queryObject.QueryType switch
@@ -30,9 +30,8 @@ public abstract class DatabaseQueryOperation<TObject> : QueryOperation<TObject, 
                 DatabaseQueryOperationType.Delete => await DeleteAsync(),
                 _ => throw new System.Exception("Error")
             };
-
         }
-
+        //return errors;
         throw new System.Exception("asd"); //ToDo
     }
 

@@ -43,7 +43,7 @@ public class QueryObjectCommand<TObject> : IQueryObjectPart<QueryObjectCommand<T
 }
 
 
-public class ObjectCommand<TObject> where TObject : IQueryableObject
+public class ObjectCommand<TObject> : QueryObjectResult where TObject : IQueryableObject
 {
     public CommandValueType CommandValueType
     {
@@ -96,4 +96,10 @@ public class ObjectCommand<TObject> where TObject : IQueryableObject
 
     public void SetObjectFiltering(QueryObjectFiltering<TObject> filter) => Filter = filter;
 
+    public override void EmptyResult()
+    {
+        ObjectPredicate = null;
+        ObjectsPredicate = null;
+        Filter = null;
+    }
 }

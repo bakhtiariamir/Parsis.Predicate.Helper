@@ -12,12 +12,6 @@ public class QueryObjectBuilder<TObject, TQueryType> : IQueryObjectBuilder<TObje
 
     public static QueryObjectBuilder<TObject, TQueryType> Init(TQueryType queryType) => new(queryType);
 
-    public QueryObjectBuilder<TObject, TQueryType> SetInserting(QueryObjectInserting<TObject> objectInserting)
-    {
-        _object.Insert = objectInserting.Validate().Return();
-        return this;
-    }
-
     public QueryObjectBuilder<TObject, TQueryType> SetCommand(QueryObjectCommand<TObject> objectCommand)
     {
         _object.Command = objectCommand.Validate().Return();

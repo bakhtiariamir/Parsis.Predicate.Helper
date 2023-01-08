@@ -1,6 +1,7 @@
 ﻿using Parsis.Predicate.Sdk.Builder.Database;
 using Parsis.Predicate.Sdk.Contract;
 using Parsis.Predicate.Sdk.DataType;
+using Parsis.Predicate.Sdk.Generator.Database;
 
 namespace Parsis.Predicate.Sdk.Manager.Database;
 
@@ -11,11 +12,6 @@ public class SqlQueryOperation<TObject> : DatabaseQueryOperation<TObject> where 
     public SqlQueryOperation(IDatabaseCacheInfoCollection databaseCacheInfoCollection)
     {
         _databaseCacheInfoCollection = databaseCacheInfoCollection;
-    }
-
-    protected override Task<bool> ValidateAsync()
-    {
-        return Task.FromResult(true); // todo
     }
 
     protected override async Task<DatabaseQueryPartCollection> SelectAsync() => await RunQueryAsync(DatabaseQueryOperationType.Select);
@@ -33,4 +29,7 @@ public class SqlQueryOperation<TObject> : DatabaseQueryOperation<TObject> where 
             .BuildAsync();
         return await query.Build(QueryObject);
     }
+
+    //Use in RunQueryAsync
+    protected override Task<bool> ValidateAsync(out ICollection<QueryIssue> issues) => throw new NotImplementedException();
 }

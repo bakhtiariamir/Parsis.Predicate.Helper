@@ -1,4 +1,5 @@
 ﻿using Parsis.Predicate.Sdk.Contract;
+using Parsis.Predicate.Sdk.Generator.Database;
 using Parsis.Predicate.Sdk.Query;
 
 namespace Parsis.Predicate.Sdk.Manager;
@@ -10,7 +11,7 @@ public abstract class QueryOperation<TObject, TResult, TOperationType> : IQueryO
         set;
     }
 
-    protected abstract Task<bool> ValidateAsync();
+    protected abstract Task<bool> ValidateAsync(out ICollection<QueryIssue> issues);
     public abstract Task<TResult> RunAsync(QueryObject<TObject, TOperationType> queryObject);
 }
 
